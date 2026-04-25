@@ -1,6 +1,5 @@
 
 
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
