@@ -7,6 +7,7 @@ import useThemeContext from '../components/useThemeContext';
 import type { ActionFunctionArgs } from 'react-router-dom';
 import {useEffect,useRef} from 'react'
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 type Errors = {name?:string,email?:string,phone?:string,course?:string}
 export type StudentData = {success?:boolean,name?:string,email?:string,phone?:string,course?:string}
@@ -71,6 +72,7 @@ export default function Register() {
     const formRef = useRef<HTMLFormElement>(null)
     const buttonDisabled = actionData?.success ===true? true:false
     // console.log(buttonDisabled)
+    const navigate = useNavigate()
     
     const {theme} = useThemeContext()
     const isDark = theme ==='dark'
@@ -81,6 +83,7 @@ export default function Register() {
   useEffect(()=>{
     if(actionData?.success){
         formRef.current?.reset()
+   setTimeout(() =>  navigate('/StudentList'),500)
     }
   },[actionData])
   return (

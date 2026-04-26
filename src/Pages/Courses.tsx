@@ -17,12 +17,12 @@ const courses = [{
                 },
                   {
                   course:'English',
-                  description:'Literature, Writing, Grammar',
+                  description:'Algebra, Geometry, Calculus',
                   img:English
                 },
                   {
                   course:'History',
-                  description:'World History, Civilizations, Events',
+                  description:'Algebra, Geometry, Calculus',
                   img:History
                 }
 
@@ -31,15 +31,17 @@ const courses = [{
 function Courses() {
   
   const mappedCourses = courses.map( subject => <Link to={`/StudentList/courses/${subject.course}`} state={[subject]}>
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col gap-4 rounded-2xl pb-6 items-center  shadow-2xl p-8 shadow-black'>
                          <img src={subject.img} alt={subject.course} className='w-60'/>
                          <span className='text-xl font-bold'>{subject.course}</span>                
                 </div>
                 </Link>)
           
   return (
-    <div className="h-screen flex flex-wrap pl-30 gap-20 py-10 border-t mx-6 mt-5">
+    <div className='md:h-screen'>
+    <div className=" flex flex-wrap justify-center gap-10 py-6 mx-6 mt-5">
 {mappedCourses}
+    </div>
     </div>
   )
 }
