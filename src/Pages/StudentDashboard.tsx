@@ -3,7 +3,7 @@ import useThemeContext from "../components/useThemeContext";
 
 
 function StudentDashboard() {
-    const {theme,setTheme} = useThemeContext()
+    const {theme} = useThemeContext()
     const isDark = theme ==='dark'
   return (
     <div className={`${isDark?'bg-[#17181c] text-white':'bg-white text-black'}`}>
