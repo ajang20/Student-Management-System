@@ -13,10 +13,10 @@ function Header() {
     }  
   return (
    <div className={`sticky z-50 top-0 ${ isDark? 'bg-[#17181c]':'bg-white'}`}>
-     <header className={`h-20 flex px-8 justify-between items-center shadow-2xl md:justify-between  md:pr-20 md:pl-50 ${isDark ? 'bg-[#17181c] text-white' : 'bg-white text-black'} `}>
+     <header className={`h-20 flex px-8 justify-between items-center  md:justify-between  md:pr-20 md:pl-50 ${isDark ? 'bg-[#17181c] text-white shadow-2xl' : 'bg-white text-black shadow-xl'} `}>
         <nav className='flex items-center gap-6 justify-center md:gap-20'>
       <NavLink className={({isActive}) => isActive ? 'underline font-bold':''} to='/' >Register</NavLink>
-      <NavLink className={({isActive}) => isActive ? 'underline font-bold':''}  to='/studentList'>Student List</NavLink>
+      <NavLink className={({isActive}) => isActive ? 'underline font-bold':''}  to='/StudentList'>Student List</NavLink>
         </nav>
      <div  className='text-2xl' onClick={handleTheme}>
         {isDark? <CiLight /> :<MdDarkMode/>

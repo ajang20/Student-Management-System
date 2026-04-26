@@ -5,12 +5,15 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa";
 import useThemeContext from '../components/useThemeContext';
 import type { ActionFunctionArgs } from 'react-router-dom';
+import {useEffect,useRef} from 'react'
+import toast from 'react-hot-toast';
 
 type Errors = {name?:string,email?:string,phone?:string,course?:string}
+export type StudentData = {success?:boolean,name?:string,email?:string,phone?:string,course?:string}
 export async function action({request}:ActionFunctionArgs){
   
     const formData = await request.formData()
-    console.log(' Data fired!')
+ 
     const name = formData.get('name') as string
     const email = formData.get('email') as string
     const phone = formData.get('phone') as string
@@ -50,26 +53,40 @@ if(Object.keys(errors).length > 0) {
     return {errors};
 }
 
-return { success:true,name,email,phone,course}
+//check for existing students 
+const existing = localStorage.getItem('students')
+   console.log(existing)
+const studentsArr:StudentData[] = existing ? JSON.parse(existing):[]
+
+const newStudent:StudentData = {success:true,name,email,phone,course}
+
+      studentsArr.push(newStudent)
+     localStorage.setItem('students',JSON.stringify(studentsArr))
+
+return newStudent
 }
     
-
-// function formValidation(name,email,phone,course){
-// return {name,email,phone,course}
-// }
 export default function Register() {
     const actionData = useActionData() as  {errors?:Errors,success?:boolean,name?:string,email?:string,phone?:string,course?:string} | undefined
-    console.log(actionData)
+    const formRef = useRef<HTMLFormElement>(null)
     const buttonDisabled = actionData?.success ===true? true:false
-    console.log(buttonDisabled)
+    // console.log(buttonDisabled)
     
     const {theme} = useThemeContext()
     const isDark = theme ==='dark'
+  if(actionData?.success){
+   toast.success(`${actionData.name} Registered Successfully!`)
+  }
 
+  useEffect(()=>{
+    if(actionData?.success){
+        formRef.current?.reset()
+    }
+  },[actionData])
   return (
     <div className={`flex justify-center pt-20 h-screen ${isDark?'bg-[#17181c]':'bg-white'}`}>
 
-        <Form method='post' className={` rounded-2xl flex flex-col gap-6 h-[70vh] w-[80%] p-10 shadow-2xl shadow-black md:w-[60%] lg:w-[30%] ${isDark?'bg-[#23262f] text-white':'bg-white text-black'}`}>
+        <Form ref={formRef} method='post' className={` rounded-2xl flex flex-col gap-6 h-[70vh] w-[80%] p-10 shadow-2xl shadow-black md:w-[60%] lg:w-[30%] ${isDark?'bg-[#23262f] text-white':'bg-white text-black'}`}>
             <div className='text-3xl font-bold'>
               Registration Form
             </div>
