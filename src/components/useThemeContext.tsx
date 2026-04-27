@@ -16,4 +16,12 @@ function useThemeContext() {
   return ctx;
 }
 
+// export function ThemeProvider({children}:{children:ReactNode}){
+//   const [theme,setTheme] = React.useState<string>('light')
+//   return (
+//     <ThemeContex.Provider value={{theme,setTheme}}>
+//       {children}
+//     </ThemeContex.Provider>
+//   )
+// }
 export default useThemeContext

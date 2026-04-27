@@ -9,7 +9,7 @@ import {useEffect,useRef} from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-type Errors = {name?:string,email?:string,phone?:string,course?:string}
+export type Errors = {name?:string,email?:string,phone?:string,course?:string}
 export type StudentData = {success?:boolean,name?:string,email?:string,phone?:string,course?:string}
 export async function action({request}:ActionFunctionArgs){
   
@@ -67,6 +67,8 @@ const newStudent:StudentData = {success:true,name,email,phone,course}
 return newStudent
 }
     
+
+
 export default function Register() {
     const actionData = useActionData() as  {errors?:Errors,success?:boolean,name?:string,email?:string,phone?:string,course?:string} | undefined
     const formRef = useRef<HTMLFormElement>(null)
@@ -83,7 +85,7 @@ export default function Register() {
   useEffect(()=>{
     if(actionData?.success){
         formRef.current?.reset()
-   setTimeout(() =>  navigate('/StudentList'),500)
+   setTimeout(() =>  navigate('/StudentList',{state:actionData.success}),100)
     }
   },[actionData])
   return (

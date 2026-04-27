@@ -8,6 +8,8 @@ import {Route,createBrowserRouter,createRoutesFromElements,RouterProvider} from 
 import Courses from './Pages/Courses.tsx'
 import StudentDashboard from './Pages/StudentDashboard.tsx'
 import CourseDetails from './CourseDetails.tsx'
+import Confirmation from './components/confirmation.tsx'
+
 
 
 const router = createBrowserRouter(
@@ -17,10 +19,13 @@ const router = createBrowserRouter(
        path ='/'
         element={<Register/>}
         action={action}/>
+        <Route 
+        element={<Confirmation/>}
+
+        >
       <Route 
       path='/StudentList' 
       element={<StudentDashboard/>}
-      
       >
         <Route
          index 
@@ -30,6 +35,7 @@ const router = createBrowserRouter(
         <Route path='courses' element={<Courses/>}>
       </Route>
        <Route path='/StudentList/courses/:course' element={<CourseDetails/>}/>
+      </Route>
       </Route>
       </Route>
   )
